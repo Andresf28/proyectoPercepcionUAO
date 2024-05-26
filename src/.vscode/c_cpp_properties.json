@@ -1,0 +1,39 @@
+{
+  "configurations": [
+    {
+      "browse": {
+        "databaseFilename": "${default}",
+        "limitSymbolsToIncludedHeaders": false
+      },
+      "includePath": [
+        "/home/andres/percepcion_ws/install/ros2_grasping/include/**",
+        "/home/andres/percepcion_ws/install/ros2_data/include/**",
+        "/home/andres/percepcion_ws/install/gazebo_ros2_control/include/**",
+        "/home/andres/agrobot/install/serial/include/**",
+        "/home/andres/agrobot/install/rplidar_ros/include/**",
+        "/home/andres/agrobot/install/ros2_control_demo_example_9/include/**",
+        "/home/andres/agrobot/install/ros2_control_demo_example_8/include/**",
+        "/home/andres/agrobot/install/ros2_control_demo_example_7/include/**",
+        "/home/andres/agrobot/install/ros2_control_demo_example_6/include/**",
+        "/home/andres/agrobot/install/ros2_control_demo_example_5/include/**",
+        "/home/andres/agrobot/install/ros2_control_demo_example_4/include/**",
+        "/home/andres/agrobot/install/ros2_control_demo_example_3/include/**",
+        "/home/andres/agrobot/install/ros2_control_demo_example_2/include/**",
+        "/home/andres/agrobot/install/ros2_control_demo_example_12/include/**",
+        "/home/andres/agrobot/install/ros2_control_demo_example_1/include/**",
+        "/home/andres/lab_ws/install/ros2_control_demo_example_9/include/**",
+        "/home/andres/lab_ws/install/robotiq_driver/include/**",
+        "/home/andres/lab_ws/install/robotiq_controllers/include/**",
+        "/opt/ros/humble/include/**",
+        "/home/andres/percepcion_ws/src/gazebo_ros2_control/gazebo_ros2_control/include/**",
+        "/usr/include/**"
+      ],
+      "name": "ROS",
+      "intelliSenseMode": "gcc-x64",
+      "compilerPath": "/usr/bin/gcc",
+      "cStandard": "gnu11",
+      "cppStandard": "c++14"
+    }
+  ],
+  "version": 4
+}
