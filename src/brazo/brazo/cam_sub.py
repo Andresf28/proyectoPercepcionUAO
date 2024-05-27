@@ -37,7 +37,7 @@ class ImageSubscriber(Node):
         # Define the region of interest (ROI)
         height, width = current_frame.shape[:2]
         x_center, y_center = width // 2, height // 2
-        roi_width, roi_height = 470, 350  # Tamaño del rectángulo de la ROI
+        roi_width, roi_height = 430, 300  # Tamaño del rectángulo de la ROI
 
         # Calcular las coordenadas de la ROI
         x1 = x_center - roi_width // 2

@@ -5,6 +5,8 @@ from cv_bridge import CvBridge
 import cv2
 import numpy as np
 import subprocess
+import time
+from std_msgs.msg import String
 
 class ColorDetectionNode(Node):
     def __init__(self):
@@ -14,6 +16,14 @@ class ColorDetectionNode(Node):
             '/camera/image_raw',  # Reemplaza 'camera_topic' con el nombre correcto del topic de la cámara
             self.image_callback,
             10)
+        
+        self.object_subscription = self.create_subscription(
+            String,
+            'detected_object',
+            self.object_callback,
+            10)
+        
+        self.detected_object = None 
                
         self.bridge = CvBridge()
 
@@ -25,7 +35,7 @@ class ColorDetectionNode(Node):
         # Define the region of interest (ROI)
         height, width = cv_image.shape[:2]
         x_center, y_center = width // 2, height // 2
-        roi_width, roi_height = 470, 350  # Tamaño del rectángulo de la ROI
+        roi_width, roi_height = 430, 300  # Tamaño del rectángulo de la ROI
 
         # Calcular las coordenadas de la ROI
         x1 = x_center - roi_width // 2
@@ -46,24 +56,44 @@ class ColorDetectionNode(Node):
         # Detectar el color en la imagen
         color = self.detect_color(masked_image)
 
-        if color is not None:
+
+        if color is not None and self.detected_object is not None:
             self.get_logger().info(f"Color detectado: {color}")
             # Realizar acciones según el color detectado
             if color == 'rojo':
-                # Realizar acciones para el color rojo      CIRCULO
-                subprocess.call(['ros2', 'run', 'ros2_execution', 'ros2_execution.py', '--ros-args','-p', 'PROGRAM_FILENAME:=circulo', '-p', 'ROBOT_MODEL:=irb120', '-p', 'EE_MODEL:=schunk'])
+                time.sleep(5)
+                if self.detected_object  == 'triangulo':
+                    subprocess.call(['ros2', 'run', 'ros2_execution', 'ros2_execution.py', '--ros-args','-p', 'PROGRAM_FILENAME:=triangulo_rojo', '-p', 'ROBOT_MODEL:=irb120', '-p', 'EE_MODEL:=schunk'])
+                elif self.detected_object  == 'luna':
+                    subprocess.call(['ros2', 'run', 'ros2_execution', 'ros2_execution.py', '--ros-args','-p', 'PROGRAM_FILENAME:=luna_rojo', '-p', 'ROBOT_MODEL:=irb120', '-p', 'EE_MODEL:=schunk'])
 
             elif color == 'verde':
-                # Realizar acciones para el color verde     TRIANGULO
-                subprocess.call(['ros2', 'run', 'ros2_execution', 'ros2_execution.py', '--ros-args','-p', 'PROGRAM_FILENAME:=triangulo', '-p', 'ROBOT_MODEL:=irb120', '-p', 'EE_MODEL:=schunk'])
+                time.sleep(5)
+                if self.detected_object  == 'circulo':
+                    subprocess.call(['ros2', 'run', 'ros2_execution', 'ros2_execution.py', '--ros-args','-p', 'PROGRAM_FILENAME:=cilindro_verde', '-p', 'ROBOT_MODEL:=irb120', '-p', 'EE_MODEL:=schunk'])
+                elif self.detected_object  == 'estrella':
+                    subprocess.call(['ros2', 'run', 'ros2_execution', 'ros2_execution.py', '--ros-args','-p', 'PROGRAM_FILENAME:=estrella_verde', '-p', 'ROBOT_MODEL:=irb120', '-p', 'EE_MODEL:=schunk'])
+                elif self.detected_object  == 'luna':
+                    subprocess.call(['ros2', 'run', 'ros2_execution', 'ros2_execution.py', '--ros-args','-p', 'PROGRAM_FILENAME:=luna_verde', '-p', 'ROBOT_MODEL:=irb120', '-p', 'EE_MODEL:=schunk'])
 
             elif color == 'azul':
-                # Realizar acciones para el color azul     LUNA
-                subprocess.call(['ros2', 'run', 'ros2_execution', 'ros2_execution.py', '--ros-args','-p', 'PROGRAM_FILENAME:=luna', '-p', 'ROBOT_MODEL:=irb120', '-p', 'EE_MODEL:=schunk'])
+                time.sleep(5)
+                if self.detected_object  == 'estrella':
+                    subprocess.call(['ros2', 'run', 'ros2_execution', 'ros2_execution.py', '--ros-args','-p', 'PROGRAM_FILENAME:=estrella_azul', '-p', 'ROBOT_MODEL:=irb120', '-p', 'EE_MODEL:=schunk'])
+                elif self.detected_object  == 'circulo':
+                    subprocess.call(['ros2', 'run', 'ros2_execution', 'ros2_execution.py', '--ros-args','-p', 'PROGRAM_FILENAME:=cilindro_azul', '-p', 'ROBOT_MODEL:=irb120', '-p', 'EE_MODEL:=schunk'])
+                elif self.detected_object  == 'triangulo':
+                    subprocess.call(['ros2', 'run', 'ros2_execution', 'ros2_execution.py', '--ros-args','-p', 'PROGRAM_FILENAME:=triangulo_azul', '-p', 'ROBOT_MODEL:=irb120', '-p', 'EE_MODEL:=schunk'])
 
             else:
                 self.get_logger().info("no hay objeto")
                 
+            self.detected_object = None
+
+            
+    def object_callback(self, msg):
+        self.detected_object = msg.data
+
 
     def detect_color(self, image):
         # Convertir la imagen de BGR a HSV (Hue, Saturation, Value)
