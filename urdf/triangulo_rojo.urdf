@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<robot
+  name="tri_ver2">
+  <link
+    name="triangulo_link">
+    <inertial>
+      <origin
+        xyz="0.022283 0.05 0.098594"
+        rpy="0 0 0" />
+      <mass
+        value="0.10825" />
+      <inertia
+        ixx="15"
+        ixy="-8.807E-21"
+        ixz="-1.0857E-19"
+        iyy="15"
+        iyz="9.5218E-21"
+        izz="15" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="-0.1 0 0"
+        rpy="0 0 1.15" />
+      <geometry>
+        <mesh
+          filename="package://brazo/meshes/triangulo_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="-0.1 0 0"
+        rpy="0 0 1.15" />
+      <geometry>
+        <mesh
+          filename="package://brazo/meshes/triangulo_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+  <gazebo reference="triangulo_link">
+    <material>Gazebo/Red</material>
+    <mu1>100.0</mu1>
+    <mu2>100.0</mu2>
+    <selfCollide>false</selfCollide>
+  </gazebo>
+</robot>

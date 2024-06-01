@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<robot
+  name="caja">
+  <link
+    name="caja_link">
+    <inertial>
+      <origin
+        xyz="1.0936E-16 0.10733 -8.2144E-17"
+        rpy="0 0 0" />
+      <mass
+        value="3.176" />
+      <inertia
+        ixx="0.051911"
+        ixy="-1.27E-17"
+        ixz="-2.5162E-18"
+        iyy="0.059783"
+        iyz="4.8099E-18"
+        izz="0.051911" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://brazo/meshes/caja_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://brazo/meshes/caja_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+</robot>
